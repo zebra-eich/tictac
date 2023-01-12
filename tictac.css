@@ -1,0 +1,8 @@
+h1{text-align: center;font-family: Garamond}
+h3{text-align: center;font-family: Garamond}
+.difficulty{position: relative;left: 41vw;background-color: rgb(226, 183, 117);border: none;border-radius: 3%;padding: 15px;color: #000;text-decoration: none;font-family: Garamond;font-size: 20px;transition: .7s;}
+.difficulty:hover{background-color: rgb(226, 183, 117);border: none;border-radius: 3%;padding: 22px;color: #000;}
+.reset{position: relative;left: 43vw;top: 5vh;text-align: center;background-color: rgb(228, 193, 142);border: none;border-radius: 4%;padding: 20px 70px;font-family: Garamond;font-size: 25px;transition: .7s;cursor: pointer;}
+.reset:hover{background-color:rgb(226, 183, 117);}
+.back{font-size: 20px;font-family: Garamond;padding: 20px;color: #000;text-decoration: none;transition: .6s;position: relative;bottom: 65vh;right: 15vw;}
+.back:hover{background-color:rgb(226, 183, 117)}
