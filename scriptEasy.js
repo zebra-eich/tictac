@@ -27,10 +27,14 @@ function makeMove(obj, moves) {
             alert("Congratulations you have won!!");
             disabledBoard();
         }
-        else{
+        else if (moves==comp){
             alert("The computer wins!!");
             disabledBoard();
         }
+		else{
+			alert("Tie!!");
+			disabledBoard();
+		}
     }
     else if (moves == player){
         setTimeout(function(){ compMove(); }, 100);//delay comp move so player can see comp move easier
@@ -50,7 +54,7 @@ function compMove() {
 
     /* ===== Win on next move if possible ===== */
     let temp = Array.from(comp);
-    if (temp.length == 4){
+    if (temp.length >= 4 ){
         temp.shift();
     }
     if(temp.length == 3){
@@ -72,11 +76,11 @@ function compMove() {
         if (temp.length >= 4){
             temp.shift();
         }
-        if (temp.length >= 2){
-            for(let i=0; i<possibleMoves.length; i++){
+        if (temp.length == 3){
+            for(let i=1; i<possibleMoves.length; i++){
                 temp.push(possibleMoves[i]);//tries all possible moves
                 if(isWin(temp)){
-                    move = possibleMoves[i];//computer blocks player if player is about to win
+                    temp.pop();//computer blocks player if player is about to win
                     break;
                 }
                 else{
@@ -87,7 +91,7 @@ function compMove() {
     }
 
     if (move == null){
-        move = possibleMoves[Math.floor(Math.random()*possibleMoves.length)];//pick randomly from list
+        move = possibleMoves[Math.floor(Math.random())];//pick randomly from list
     }
     let obj = document.getElementById(move);
 
@@ -97,7 +101,7 @@ function compMove() {
 
 function isWin(moves) {
     if (moves.length >= 4){
-        for (let i = 1; i<10; i++){
+        for (let i = 0; i<10; i++){
             if (wins[i].every(val => moves.includes(val))){
                 return true;
             }

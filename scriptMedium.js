@@ -27,7 +27,7 @@ function makeMove(obj, moves) {
             alert("Congratulations you have won!!");
             disabledBoard();
         }
-        else{
+        else {
             alert("The computer wins!!");
             disabledBoard();
         }
@@ -50,10 +50,10 @@ function compMove() {
 
     /* ===== Win on next move if possible ===== */
     let temp = Array.from(comp);
-    if (temp.length == 4){
+    if (temp.length >= 4){
         temp.shift();
     }
-    if(temp.length == 3){
+    if(temp.length >= 2){
         for(let i=0; i<possibleMoves.length; i++){
             temp.push(possibleMoves[i]);//tries all possible moves
             if(isWin(temp)){
@@ -72,11 +72,11 @@ function compMove() {
         if (temp.length >= 4){
             temp.shift();
         }
-        if (temp.length >= 2){
+        if (temp.length == 3){
             for(let i=0; i<possibleMoves.length; i++){
                 temp.push(possibleMoves[i]);//tries all possible moves
                 if(isWin(temp)){
-                    move = possibleMoves[i];//computer blocks player if player is about to win
+                    temp.pop();//computer blocks player if player is about to win
                     break;
                 }
                 else{
@@ -97,7 +97,7 @@ function compMove() {
 
 function isWin(moves) {
     if (moves.length >= 4){
-        for (let i = 1; i<10; i++){
+        for (let i = 0; i<10; i++){
             if (wins[i].every(val => moves.includes(val))){
                 return true;
             }
