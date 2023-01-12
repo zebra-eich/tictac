@@ -7,13 +7,9 @@ const wins = [
  ];
 
 function playerMove(obj){
-
     makeMove(obj, player);
 }
 
-
-  
-  
 function makeMove(obj, moves) {
     obj.setAttribute("disabled", 'disabled');
     if(moves == player){
@@ -42,18 +38,21 @@ function makeMove(obj, moves) {
 }
 
 function isWin(moves) {
-    if (moves.length == 4){
-        var sorted = Array.from(moves); //using array.from so javascript does not copy ref values
-        sorted.sort(function(a, b){return a - b}); //sort ascending order to match wins
-    
-        for (var i = 0; i<10; i++){
-            if (JSON.stringify(sorted) == JSON.stringify(wins[i])){
-                    return true;
-                }
+    if (moves.length >= 4){
+        for (var i = 1; i<10; i++){
+            if (wins[i].every(val => moves.includes(val))){
+                return true;
+            }
         }
     }
     return false;
 }
+
+
+const select = document.getElementById('difficulty');
+
+
+
 
 function compMove() {
     var move;
@@ -67,7 +66,7 @@ function compMove() {
 
     /* ===== Win on next move if possible ===== */
     var temp = Array.from(comp);
-    if (temp.length == 4){
+    if (temp.length >= 4 ){
         temp.shift();
     }
     if(temp.length == 3){
@@ -86,7 +85,104 @@ function compMove() {
     /* ===== Block player from winning on next move ===== */
     if (move == null){
         temp = Array.from(player);
-        if (temp.length == 4){
+        if (temp.length >= 4){
+            temp.shift();
+        }
+        if (temp.length == 3){
+            for(var i=1; i<possibleMoves.length; i++){
+                temp.push(possibleMoves[i]);//tries all possible moves
+                if(isWin(temp)){
+                    move = possibleMoves[i];//computer blocks player if player is about to win
+                    break;
+                }
+                else{
+                    temp.pop();//removes possible move that doesnt block win
+                }
+            }
+        }
+    }
+
+    if (move == null){
+        move = possibleMoves[Math.floor(Math.random()*possibleMoves.length)];//pick randomly from list
+    }
+    var obj = document.getElementById(move);
+
+    makeMove(obj, comp);
+}
+
+
+function compMoveE() {
+    var move;
+    var elements = document.getElementsByClassName("fill");
+
+    /* ===== All Possible Moves Comp can make =====*/
+    var possibleMoves = new Array();
+    for (var i=0; i<elements.length; i){
+        possibleMoves.push(Number(elements[i].id));
+    }
+
+    /* ===== Win on next move if possible ===== */
+    var temp = Array.from(comp);
+    if (temp.length >= 4 ){
+        temp.shift();
+    }
+    if(temp.length == 3){
+        for(var i=0; i<possibleMoves.length; i++){
+            temp.push(possibleMoves[i]);//tries all possible moves
+            if(isWin(temp)){
+                move = possibleMoves[i];//computer moves to win if possible in one move
+                break;
+            }
+            else{
+                temp.pop();//removes possible move that doesnt win
+            }
+        }
+    }
+
+
+    if (move == null){
+        move = possibleMoves[Math.floor(Math.random()*possibleMoves.length)];//pick randomly from list
+    }
+    var obj = document.getElementById(move);
+
+    makeMove(obj, comp);
+}
+
+
+
+
+function compMoveH() {
+    var move;
+    var elements = document.getElementsByClassName("fill");
+
+    /* ===== All Possible Moves Comp can make =====*/
+    var possibleMoves = new Array();
+    for (var i=0; i<elements.length; i++){
+        possibleMoves.push(Number(elements[i].id));
+    }
+
+    /* ===== Win on next move if possible ===== */
+    var temp = Array.from(comp);
+    if (temp.length >= 4 ){
+        temp.shift();
+    }
+    if(temp.length == 3){
+        for(var i=0; i<possibleMoves.length; i++){
+            temp.push(possibleMoves[i]);//tries all possible moves
+            if(isWin(temp)){
+                move = possibleMoves[i];//computer moves to win if possible in one move
+                break;
+            }
+            else{
+                temp.pop();//removes possible move that doesnt win
+            }
+        }
+    }
+
+    /* ===== Block player from winning on next move ===== */
+    if (move == null){
+        temp = Array.from(player);
+        if (temp.length >= 4){
             temp.shift();
         }
         if (temp.length == 3){
@@ -110,6 +206,7 @@ function compMove() {
 
     makeMove(obj, comp);
 }
+
 
 
 
