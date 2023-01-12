@@ -37,6 +37,7 @@ function makeMove(obj, moves) {
     }
 }
 
+
 function isWin(moves) {
     if (moves.length >= 4){
         for (var i = 1; i<10; i++){
@@ -49,7 +50,8 @@ function isWin(moves) {
 }
 
 
-const select = document.getElementById('difficulty');
+
+
 
 
 
@@ -122,22 +124,7 @@ function compMoveE() {
     }
 
     /* ===== Win on next move if possible ===== */
-    var temp = Array.from(comp);
-    if (temp.length >= 4 ){
-        temp.shift();
-    }
-    if(temp.length == 3){
-        for(var i=0; i<possibleMoves.length; i++){
-            temp.push(possibleMoves[i]);//tries all possible moves
-            if(isWin(temp)){
-                move = possibleMoves[i];//computer moves to win if possible in one move
-                break;
-            }
-            else{
-                temp.pop();//removes possible move that doesnt win
-            }
-        }
-    }
+
 
 
     if (move == null){
